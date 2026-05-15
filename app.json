@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Grand Azure Hotel",
+    "slug": "grand-azure-hotel",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "grandazure",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#0f2b4c"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.grandazure.hotel"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f2b4c"
+      },
+      "package": "com.grandazure.hotel"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ]
+  }
+}
