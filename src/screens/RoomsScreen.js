@@ -85,24 +85,32 @@ export default function RoomsScreen() {
       </View>
 
       {/* Filters */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={s.filterRow}
-        contentContainerStyle={{ paddingHorizontal: 20, gap: 8 }}
+      <View style={s.filterRow}>
+  <ScrollView
+    horizontal
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{ paddingLeft: 20, paddingRight: 20, gap: 8, alignItems: 'center', height: 52 }}
+  >
+    <TouchableOpacity
+      onPress={() => setFilter('')}
+      style={[s.filterChip, filter === '' && s.filterChipActive]}
+    >
+      <Text style={[s.filterChipText, filter === '' && s.filterChipTextActive]}>All</Text>
+    </TouchableOpacity>
+
+    {roomTypes.map(type => (
+      <TouchableOpacity
+        key={type.name}
+        onPress={() => setFilter(type.name)}
+        style={[s.filterChip, filter === type.name && s.filterChipActive]}
       >
-        {['', ...roomTypes.map(t => t.name)].map(type => (
-          <TouchableOpacity
-            key={type || 'all'}
-            onPress={() => setFilter(type)}
-            style={[s.filterChip, filter === type && s.filterChipActive]}
-          >
-            <Text style={[s.filterChipText, filter === type && s.filterChipTextActive]}>
-              {type ? type.charAt(0).toUpperCase() + type.slice(1) : 'All'}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+        <Text style={[s.filterChipText, filter === type.name && s.filterChipTextActive]}>
+          {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+        </Text>
+      </TouchableOpacity>
+    ))}
+  </ScrollView>
+</View>
 
       {loading ? (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -129,25 +137,25 @@ export default function RoomsScreen() {
 }
 
 const s = StyleSheet.create({
-  header:       { backgroundColor: Colors.navy, paddingTop: 16, paddingBottom: 24, paddingHorizontal: 24 },
-  headerTitle:  { fontSize: 26, fontWeight: '800', color: Colors.white, letterSpacing: -0.5 },
-  headerSub:    { fontSize: 13, color: 'rgba(255,255,255,0.55)', marginTop: 3 },
-  filterRow:    { backgroundColor: Colors.white, paddingVertical: 12, maxHeight: 56, borderBottomWidth: 1, borderBottomColor: Colors.gray100 },
-  filterChip:   { paddingHorizontal: 16, paddingVertical: 6, borderRadius: 99, backgroundColor: Colors.gray100, marginRight: 0 },
-  filterChipActive: { backgroundColor: Colors.blue },
+  header:           { backgroundColor: Colors.navy, paddingTop: 16, paddingBottom: 24, paddingHorizontal: 24 },
+  headerTitle:      { fontSize: 26, fontWeight: '800', color: Colors.white, letterSpacing: -0.5 },
+  headerSub:        { fontSize: 13, color: 'rgba(255,255,255,0.55)', marginTop: 3 },
+  filterRow:        { backgroundColor: Colors.white, height: 52, borderBottomWidth: 1, borderBottomColor: Colors.gray200 },
+  filterChip:       { paddingHorizontal: 16, paddingVertical: 7, borderRadius: 99, backgroundColor: Colors.gray100, borderColor: 'transparent', alignSelf: 'center' },
+  filterChipActive: { backgroundColor: Colors.bluePale, borderColor: Colors.blue },
   filterChipText:       { fontSize: 13, fontWeight: '600', color: Colors.gray600 },
-  filterChipTextActive: { color: Colors.white },
-  imageBox:     { height: 200, backgroundColor: Colors.gray100, position: 'relative' },
-  image:        { width: '100%', height: '100%' },
+  filterChipTextActive: { color: Colors.blue },
+  imageBox:         { height: 200, backgroundColor: Colors.gray100, position: 'relative' },
+  image:            { width: '100%', height: '100%' },
   imagePlaceholder: { alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.bluePale },
   unavailableOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
-  typeBadge:    { position: 'absolute', top: 12, left: 12, backgroundColor: Colors.white, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
-  typeBadgeText: { fontSize: 11, fontWeight: '700', color: Colors.navy, textTransform: 'capitalize' },
-  cardBody:     { padding: 16 },
-  roomNumber:   { fontSize: 17, fontWeight: '800', color: Colors.navy },
-  roomFloor:    { fontSize: 12, color: Colors.gray400, marginTop: 2 },
-  price:        { fontSize: 18, fontWeight: '800', color: Colors.blue },
-  perNight:     { fontSize: 11, color: Colors.gray400 },
-  amenityTag:   { backgroundColor: Colors.gray100, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 99 },
-  amenityText:  { fontSize: 11, color: Colors.gray600 },
+  typeBadge:        { position: 'absolute', top: 12, left: 12, backgroundColor: Colors.white, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 99 },
+  typeBadgeText:    { fontSize: 11, fontWeight: '700', color: Colors.navy, textTransform: 'capitalize' },
+  cardBody:         { padding: 16 },
+  roomNumber:       { fontSize: 17, fontWeight: '800', color: Colors.navy },
+  roomFloor:        { fontSize: 12, color: Colors.gray400, marginTop: 2 },
+  price:            { fontSize: 18, fontWeight: '800', color: Colors.blue },
+  perNight:         { fontSize: 11, color: Colors.gray400 },
+  amenityTag:       { backgroundColor: Colors.gray100, paddingHorizontal: 10, paddingVertical: 3, borderRadius: 99 },
+  amenityText:      { fontSize: 11, color: Colors.gray600 },
 });
